@@ -67,11 +67,11 @@
 			<artifactId>woodstox-core-asl</artifactId>
 			<version>4.4.1</version>
 		</dependency>
-
+	<!--
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<!-- lookup parent from repository <dependency> <groupId>org.springframework.boot</groupId> 
 			<artifactId>spring-boot-starter-test</artifactId> <scope>test</scope> </dependency> -->
