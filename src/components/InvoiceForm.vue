@@ -2,10 +2,10 @@
   <div>
     <h2>Create Invoice</h2>
 
-    <div style="border:1px solid #ddd;padding:12px;border-radius:6px;">
+    <div style="border:1px solid #ddd;padding:12px;border-radius:6px;background-color: #f5f5f5b0;">
       <div>
         <label>Customer name</label>
-        <input v-model="customer.value" placeholder="Customer" />
+        <input v-model="customer.value" class="form-control" placeholder="Customer" />
       </div>
 
       <h3>Items</h3>
@@ -21,23 +21,23 @@
         </thead>
         <tbody>
           <tr v-for="(item, idx) in items" :key="idx">
-            <td><input v-model="item.description" /></td>
-            <td><input type="number" min="0" v-model.number="item.qty" style="width:72px" /></td>
-            <td><input type="number" min="0" step="0.01" v-model.number="item.unitPrice" style="width:100px" /></td>
+            <td><input class="form-control" v-model="item.description" /></td>
+            <td><input class="form-control" type="number" min="0" v-model.number="item.qty" style="width:72px" /></td>
+            <td><input class="form-control" type="number" min="0" step="0.01" v-model.number="item.unitPrice" style="width:100px" /></td>
             <td>{{ (item.qty * item.unitPrice).toFixed(2) }}</td>
-            <td><button @click="removeItem(idx)">Remove</button></td>
+            <td><button @click="removeItem(idx)" class="btn btn-default">Remove</button></td>
           </tr>
         </tbody>
       </table>
 
-      <button @click="addItem">Add item</button>
+      <button @click="addItem" class="btn btn-success">Add item</button>
 
       <div style="margin-top:12px">
         <strong>Subtotal: </strong>{{ subtotal.toFixed(2) }}
       </div>
 
       <div style="margin-top:12px;display:flex;gap:12px;">
-        <button @click="saveInvoice">Save Invoice</button>
+        <button @click="saveInvoice" class="btn btn-success">Save Invoice</button>
       </div>
     </div>
   </div>

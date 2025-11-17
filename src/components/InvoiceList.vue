@@ -28,7 +28,7 @@
         <p class="mb-2"><strong></strong> ₹{{ inv.subtotal.toFixed(2) }}</p></td>
         <!-- Items List -->
         <td>
-        <details class="mb-2">
+        <details class="mb-4">
           <summary>Items ({{ inv.items?.length || 0 }})</summary>
           <ul v-if="inv.items && inv.items.length" class="ml-5 mt-2 list-disc">
             <li v-for="it in inv.items" :key="it.id">
@@ -42,9 +42,8 @@
          <td>
         <button
           @click="downloadInvoicePdf(inv.id)"
-          class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-          📄 Download PDF
-        </button></td></tr>  </tbody>
+          class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition btn btn-success">          📄 Download PDF</button>
+       </td></tr>  </tbody>
          </table> 
       </div>  <p v-else class="text-gray-500 italic">No invoices available</p>
    
