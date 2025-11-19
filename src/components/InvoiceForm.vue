@@ -1,8 +1,55 @@
+<script setup>
+import { reactive, computed } from 'vue'
+import axios from 'axios'
+import InvoiceList from './InvoiceList.vue';
+import { API_CONFIG } from '@/config'; 
+
+console.log(API_CONFIG.baseURL);
+const customer = reactive({ value: '' })
+//const items = reactive([{ description: '', qty: 1, unitPrice: 0 }])
+const items =reactive([{ description: '', qty: 1, unitPrice: 0 }]) 
+function addItem() {console.log(items);
+  items.push({ description: '', qty: 1, unitPrice: 0 })
+  
+}
+
+function removeItem(idx) {
+    console.log('Removing item at index:', idx);
+  items.splice(idx, 1)
+    console.log('Current items:', items);
+}
+
+const subtotal = computed(() =>
+  
+  items.reduce((s, it) => s + (it.qty || 0) * (it.unitPrice || 0), 0)
+)
+
+async function saveInvoice() {
+  const payload = {
+    customer: customer.value || 'Anonymous',
+    items: items.map(i => ({
+      description: i.description,
+      qty: i.qty,
+      unitPrice: i.unitPrice,
+    })),
+    subtotal: subtotal.value,
+  }
+
+  try {
+    await axios.post(API_CONFIG.baseURL+'api/invoices', payload)
+    alert('Invoice saved!')
+    //this.InvoiceList.fetchInvoices();
+  } catch (e) {
+    console.error(e)
+    alert('Failed to save invoice')
+  }
+}
+</script>
 <template>
   <div>
     <h2>Create Invoice</h2>
 
-    <div style="border:1px solid #ddd;padding:12px;border-radius:6px;background-color: #f5f5f5b0;">
+    <div style="border:1px solid #ddd;padding:12px;border-radius:6px;background-color: #f5f5f5b0; min-width:400px">
       <div>
         <label>Customer name</label>
         <input v-model="customer.value" class="form-control" placeholder="Customer" />
@@ -43,45 +90,3 @@
   </div>
 </template>
 
-<script setup>
-import { reactive, computed } from 'vue'
-import axios from 'axios'
-
-const customer = reactive({ value: '' })
-//const items = reactive([{ description: '', qty: 1, unitPrice: 0 }])
-const items =reactive([{ description: '', qty: 1, unitPrice: 0 }]) 
-function addItem() {console.log(items);
-  items.push({ description: '', qty: 1, unitPrice: 0 })
-  
-}
-
-function removeItem(idx) {
-    console.log('Removing item at index:', idx);
-  items.splice(idx, 1)
-    console.log('Current items:', items);
-}
-
-const subtotal = computed(() =>
-  items.reduce((s, it) => s + (it.qty || 0) * (it.unitPrice || 0), 0)
-)
-
-async function saveInvoice() {
-  const payload = {
-    customer: customer.value || 'Anonymous',
-    items: items.map(i => ({
-      description: i.description,
-      qty: i.qty,
-      unitPrice: i.unitPrice,
-    })),
-    subtotal: subtotal.value,
-  }
-
-  try {
-    await axios.post('https://16106724752e.ngrok-free.app/api/invoices', payload)
-    alert('Invoice saved!')
-  } catch (e) {
-    console.error(e)
-    alert('Failed to save invoice')
-  }
-}
-</script>
