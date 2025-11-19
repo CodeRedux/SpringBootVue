@@ -55,7 +55,7 @@ const deleteInvoicePdf = async (id) => {
     invoices.value = response.data || [];
   } catch (error) {
     console.error("Error fetching invoices:", error);
-    alert("Failed to fetch invoices from backend.");
+    alert("Unable to delete invoice.");
   } finally {
     loading.value = false;
     fetchInvoices()
@@ -78,12 +78,12 @@ onMounted(() => {
 
     <!-- Show invoices if available -->
     <div v-else-if="invoices && invoices.length" style="text-align: center;">
-      <table class="table" style="width:100%;">
+      <table class="table" style="width:90%;">
     <thead>
       <tr>       <th>Customer Name <!--<h3></h3>--></th> 
         <th>Subtotal<!--<h3></h3>--></th>
         <th>Items<!--<h3></h3>--></th>
-         <th>Download<!--<h3></h3>--></th> 
+         <th style="min-width: 190px;">Download<!--<h3></h3>--></th> 
          <th>Delete<!--<h3></h3>--></th>
       </tr>
     </thead>
