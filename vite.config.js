@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-server: {
+server: {allowedHosts: ['0f5ccb447939.ngrok-free.app'],
 proxy: {
 '/api': 'http://localhost:8087'
 }},
